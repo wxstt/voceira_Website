@@ -1,449 +1,555 @@
-"use strict";
+document.addEventListener('DOMContentLoaded', () => {
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+  // ---- LISTA COMPLETA DE 50+ IDIOMAS PROMETIDOS ----
+  const languagesList = [
+    { code: 'es', name: 'Español' },
+    { code: 'en', name: 'Inglés' },
+    { code: 'fr', name: 'Francés' },
+    { code: 'de', name: 'Alemán' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'pt', name: 'Portugués' },
+    { code: 'ru', name: 'Ruso' },
+    { code: 'zh', name: 'Chino (Mandarín)' },
+    { code: 'ja', name: 'Japonés' },
+    { code: 'ko', name: 'Coreano' },
+    { code: 'ar', name: 'Árabe' },
+    { code: 'hi', name: 'Hindi' },
+    { code: 'nl', name: 'Holandés' },
+    { code: 'pl', name: 'Polaco' },
+    { code: 'tr', name: 'Turco' },
+    { code: 'uk', name: 'Ucraniano' },
+    { code: 'vi', name: 'Vietnamita' },
+    { code: 'sv', name: 'Sueco' },
+    { code: 'el', name: 'Griego' },
+    { code: 'cs', name: 'Checo' },
+    { code: 'da', name: 'Danés' },
+    { code: 'fi', name: 'Finlandés' },
+    { code: 'hu', name: 'Húngaro' },
+    { code: 'id', name: 'Indonesio' },
+    { code: 'ro', name: 'Rumano' },
+    { code: 'th', name: 'Tailandés' },
+    { code: 'no', name: 'Noruego' },
+    { code: 'he', name: 'Hebreo' },
+    { code: 'ca', name: 'Catalán' },
+    { code: 'sk', name: 'Eslovaco' },
+    { code: 'bn', name: 'Bengalí' },
+    { code: 'tl', name: 'Tagalo (Filipinas)' },
+    { code: 'ms', name: 'Malayo' },
+    { code: 'fa', name: 'Persa' },
+    { code: 'ur', name: 'Urdu' },
+    { code: 'sw', name: 'Suajili' },
+    { code: 'ta', name: 'Tamil' },
+    { code: 'te', name: 'Telugu' },
+    { code: 'mr', name: 'Marathi' },
+    { code: 'gu', name: 'Guyaratí' },
+    { code: 'pa', name: 'Punyabí' },
+    { code: 'hr', name: 'Croata' },
+    { code: 'sr', name: 'Serbio' },
+    { code: 'bg', name: 'Búlgaro' },
+    { code: 'lt', name: 'Lituano' },
+    { code: 'lv', name: 'Letón' },
+    { code: 'et', name: 'Estonio' },
+    { code: 'sl', name: 'Esloveno' },
+    { code: 'eu', name: 'Euskera' },
+    { code: 'gl', name: 'Gallego' },
+    { code: 'eo', name: 'Esperanto' }
+  ];
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  // POBLAR DINÁMICAMENTE LOS DESPLEGABLES
+  const selectNative = document.getElementById('idioma-nativo');
+  const selectSource = document.getElementById('source-lang');
+  const selectTarget = document.getElementById('target-lang');
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+  function populateSelects() {
+    languagesList.forEach(lang => {
+      // Idioma Nativo Config
+      const opt1 = new Option(lang.name, lang.code);
+      if (lang.code === 'es') opt1.selected = true;
+      selectNative.add(opt1);
 
-/* -------------------------------------------------------------------------- */
+      // Idioma Origen Dictado
+      const opt2 = new Option(lang.name, lang.code);
+      if (lang.code === 'es') opt2.selected = true;
+      selectSource.add(opt2);
 
-/*                                    Utils                                   */
-
-/* -------------------------------------------------------------------------- */
-var docReady = function docReady(fn) {
-  // see if DOM is already available
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fn);
-  } else {
-    setTimeout(fn, 1);
+      // Idioma Destino Traducción
+      const opt3 = new Option(lang.name, lang.code);
+      if (lang.code === 'en') opt3.selected = true;
+      selectTarget.add(opt3);
+    });
   }
-};
 
-var resize = function resize(fn) {
-  return window.addEventListener('resize', fn);
-};
+  populateSelects();
 
-var isIterableArray = function isIterableArray(array) {
-  return Array.isArray(array) && !!array.length;
-};
-
-var camelize = function camelize(str) {
-  var text = str.replace(/[-_\s.]+(.)?/g, function (_, c) {
-    return c ? c.toUpperCase() : '';
+  // BOTÓN PARA INTERCAMBIAR IDIOMAS
+  const btnSwap = document.getElementById('btn-swap-langs');
+  btnSwap.addEventListener('click', () => {
+    const temp = selectSource.value;
+    selectSource.value = selectTarget.value;
+    selectTarget.value = temp;
+    
+    // Intercambiar contenido de las cajas si existe
+    const srcText = document.getElementById('source-text').value;
+    const tgtText = document.getElementById('target-text').value;
+    document.getElementById('source-text').value = tgtText;
+    document.getElementById('target-text').value = srcText;
   });
-  return "".concat(text.substr(0, 1).toLowerCase()).concat(text.substr(1));
-};
 
-var getData = function getData(el, data) {
-  try {
-    return JSON.parse(el.dataset[camelize(data)]);
-  } catch (e) {
-    return el.dataset[camelize(data)];
-  }
-};
-/* ----------------------------- Colors function ---------------------------- */
+  // ---- TEMA OSCURO / CLARO ----
+  const btnTheme = document.getElementById('btn-theme');
+  btnTheme.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    document.body.classList.toggle('dark-mode');
+    
+    const icon = btnTheme.querySelector('i');
+    if (document.body.classList.contains('light-mode')) {
+      icon.classList.remove('fa-sun');
+      icon.classList.add('fa-moon');
+    } else {
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
+  });
 
+  // ---- ACCESIBILIDAD ----
+  const btnA11y = document.getElementById('btn-a11y');
+  btnA11y.addEventListener('click', () => {
+    document.body.classList.toggle('a11y-text');
+  });
 
-var hexToRgb = function hexToRgb(hexValue) {
-  var hex;
-  hexValue.indexOf('#') === 0 ? hex = hexValue.substring(1) : hex = hexValue; // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  // ---- PESTAÑAS DE PRECIOS ----
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
 
-  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex.replace(shorthandRegex, function (m, r, g, b) {
-    return r + r + g + g + b + b;
-  }));
-  return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
-};
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTab = btn.getAttribute('data-tab');
+      
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(targetTab).classList.add('active');
+    });
+  });
 
-var rgbaColor = function rgbaColor() {
-  var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '#fff';
-  var alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.5;
-  return "rgba(".concat(hexToRgb(color), ", ").concat(alpha, ")");
-};
-/* --------------------------------- Colors --------------------------------- */
+  // ---- MODAL AUTENTICACIÓN ----
+  const modal = document.getElementById('auth-modal');
+  const openAuthBtn = document.getElementById('open-auth-btn');
+  const closeAuthBtn = document.getElementById('close-auth-btn');
+  const formLogin = document.getElementById('form-login');
+  const formRegister = document.getElementById('form-register');
+  const goToRegister = document.getElementById('go-to-register');
+  const goToLogin = document.getElementById('go-to-login');
 
+  openAuthBtn.addEventListener('click', () => modal.classList.add('active'));
+  closeAuthBtn.addEventListener('click', () => modal.classList.remove('active'));
+  
+  goToRegister.addEventListener('click', () => {
+    formLogin.classList.remove('active');
+    formRegister.classList.add('active');
+  });
+  
+  goToLogin.addEventListener('click', () => {
+    formRegister.classList.remove('active');
+    formLogin.classList.add('active');
+  });
 
-var colors = {
-  primary: '#0057FF',
-  secondary: '#748194',
-  success: '#00d27a',
-  info: '#27bcfd',
-  warning: '#f5803e',
-  danger: '#e63757',
-  light: '#f9fafd',
-  dark: '#000'
-};
-var grays = {
-  white: '#fff',
-  100: '#f9fafd',
-  200: '#edf2f9',
-  300: '#d8e2ef',
-  400: '#b6c1d2',
-  500: '#9da9bb',
-  600: '#748194',
-  700: '#162044',
-  //
-  800: '#4d5969',
-  900: '#070E27',
-  // bg dark
-  1000: '#232e3c',
-  1100: '#0b1727',
-  black: '#000'
-};
+  // BOTONES PLANES EN LANDING PAGE
+  document.querySelectorAll('.btn-select-plan').forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.add('active');
+    });
+  });
 
-var hasClass = function hasClass(el, className) {
-  !el && false;
-  return el.classList.value.includes(className);
-};
+  // ---- ESTADO DE AUTENTICACIÓN Y NAVEGACIÓN VISTA PRINCIPAL/APP ----
+  const landingView = document.getElementById('landing-view');
+  const appView = document.getElementById('app-view');
+  const mainNavLinks = document.getElementById('main-nav-links');
+  const btnToApp = document.getElementById('btn-to-app');
+  const btnLogout = document.getElementById('btn-logout');
 
-var addClass = function addClass(el, className) {
-  el.classList.add(className);
-};
-
-var getOffset = function getOffset(el) {
-  var rect = el.getBoundingClientRect();
-  var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-  var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  return {
-    top: rect.top + scrollTop,
-    left: rect.left + scrollLeft
-  };
-};
-
-var isScrolledIntoView = function isScrolledIntoView(el) {
-  var top = el.offsetTop;
-  var left = el.offsetLeft;
-  var width = el.offsetWidth;
-  var height = el.offsetHeight;
-
-  while (el.offsetParent) {
-    // eslint-disable-next-line no-param-reassign
-    el = el.offsetParent;
-    top += el.offsetTop;
-    left += el.offsetLeft;
+  function updateAuthState(isLoggedIn, userName = 'Usuario') {
+    if (isLoggedIn) {
+      modal.classList.remove('active');
+      openAuthBtn.style.display = 'none';
+      btnToApp.style.display = 'inline-block';
+      btnLogout.style.display = 'inline-block';
+      showAppView();
+    } else {
+      openAuthBtn.style.display = 'inline-block';
+      btnToApp.style.display = 'none';
+      btnLogout.style.display = 'none';
+      showLandingView();
+    }
   }
 
-  return {
-    all: top >= window.pageYOffset && left >= window.pageXOffset && top + height <= window.pageYOffset + window.innerHeight && left + width <= window.pageXOffset + window.innerWidth,
-    partial: top < window.pageYOffset + window.innerHeight && left < window.pageXOffset + window.innerWidth && top + height > window.pageYOffset && left + width > window.pageXOffset
-  };
-};
-
-var breakpoints = {
-  xs: 0,
-  sm: 576,
-  md: 768,
-  lg: 992,
-  xl: 1200,
-  xxl: 1540
-};
-
-var getBreakpoint = function getBreakpoint(el) {
-  var classes = el && el.classList.value;
-  var breakpoint;
-
-  if (classes) {
-    breakpoint = breakpoints[classes.split(' ').filter(function (cls) {
-      return cls.includes('navbar-expand-');
-    }).pop().split('-').pop()];
+  function showAppView() {
+    landingView.style.display = 'none';
+    appView.style.display = 'block';
+    mainNavLinks.style.display = 'none';
   }
 
-  return breakpoint;
-};
-/* --------------------------------- Cookie --------------------------------- */
-
-
-var setCookie = function setCookie(name, value, expire) {
-  var expires = new Date();
-  expires.setTime(expires.getTime() + expire);
-  document.cookie = "".concat(name, "=").concat(value, ";expires=").concat(expires.toUTCString());
-};
-
-var getCookie = function getCookie(name) {
-  var keyValue = document.cookie.match("(^|;) ?".concat(name, "=([^;]*)(;|$)"));
-  return keyValue ? keyValue[2] : keyValue;
-};
-
-var settings = {
-  tinymce: {
-    theme: 'oxide'
-  },
-  chart: {
-    borderColor: 'rgba(255, 255, 255, 0.8)'
+  function showLandingView() {
+    landingView.style.display = 'block';
+    appView.style.display = 'none';
+    mainNavLinks.style.display = 'flex';
   }
-};
-/* -------------------------- Chart Initialization -------------------------- */
 
-var newChart = function newChart(chart, config) {
-  var ctx = chart.getContext('2d');
-  return new window.Chart(ctx, config);
-};
-/* ---------------------------------- Store --------------------------------- */
+  btnToApp.addEventListener('click', showAppView);
+  
+  // NAVEGACIÓN EN EL BRAND
+  document.querySelector('.brand').addEventListener('click', (e) => {
+    if (appView.style.display === 'block') {
+      e.preventDefault();
+      showLandingView();
+    }
+  });
 
+  formLogin.addEventListener('submit', (e) => {
+    e.preventDefault();
+    updateAuthState(true, 'Usuario de Voceira');
+  });
 
-var getItemFromStore = function getItemFromStore(key, defaultValue) {
-  var store = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : localStorage;
+  formRegister.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('reg-name').value;
+    updateAuthState(true, name);
+  });
 
-  try {
-    return JSON.parse(store.getItem(key)) || defaultValue;
-  } catch (_unused) {
-    return store.getItem(key) || defaultValue;
-  }
-};
+  btnLogout.addEventListener('click', () => {
+    updateAuthState(false);
+  });
 
-var setItemToStore = function setItemToStore(key, payload) {
-  var store = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : localStorage;
-  return store.setItem(key, payload);
-};
+  // FORMULARIO EMPRESAS
+  document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Gracias por tu interés. Un especialista empresarial te contactará en breve.');
+    e.target.reset();
+  });
 
-var getStoreSpace = function getStoreSpace() {
-  var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : localStorage;
-  return parseFloat((escape(encodeURIComponent(JSON.stringify(store))).length / (1024 * 1024)).toFixed(2));
-};
+  // CONFIGURACIÓN DE CUENTA EN APP
+  document.getElementById('btn-save-config')?.addEventListener('click', () => {
+    const langSelected = selectNative.options[selectNative.selectedIndex].text;
+    alert(`Configuración guardada. Idioma por defecto establecido a: ${langSelected}`);
+  });
 
-var utils = {
-  docReady: docReady,
-  resize: resize,
-  isIterableArray: isIterableArray,
-  camelize: camelize,
-  getData: getData,
-  hasClass: hasClass,
-  addClass: addClass,
-  hexToRgb: hexToRgb,
-  rgbaColor: rgbaColor,
-  colors: colors,
-  grays: grays,
-  getOffset: getOffset,
-  isScrolledIntoView: isScrolledIntoView,
-  getBreakpoint: getBreakpoint,
-  setCookie: setCookie,
-  getCookie: getCookie,
-  newChart: newChart,
-  settings: settings,
-  getItemFromStore: getItemFromStore,
-  setItemToStore: setItemToStore,
-  getStoreSpace: getStoreSpace
-};
-/* -------------------------------------------------------------------------- */
+  // ==========================================
+  //     SISTEMA RECONOCIMIENTO Y TRADUCCIÓN
+  // ==========================================
+  const sourceText = document.getElementById('source-text');
+  const targetText = document.getElementById('target-text');
+  const speakBtn = document.getElementById('speak-btn');
+  const translateBtn = document.getElementById('translate-btn');
+  const recordingStatus = document.getElementById('recording-status');
 
-/*                                  Detector                                  */
+  // --- 1. RECONOCIMIENTO DE VOZ (DICTADO EN VIVO) ---
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition = null;
+  let isRecording = false;
 
-/* -------------------------------------------------------------------------- */
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
 
-var detectorInit = function detectorInit() {
-  var _window = window,
-      is = _window.is;
-  var html = document.querySelector('html');
-  is.opera() && addClass(html, 'opera');
-  is.mobile() && addClass(html, 'mobile');
-  is.firefox() && addClass(html, 'firefox');
-  is.safari() && addClass(html, 'safari');
-  is.ios() && addClass(html, 'ios');
-  is.iphone() && addClass(html, 'iphone');
-  is.ipad() && addClass(html, 'ipad');
-  is.ie() && addClass(html, 'ie');
-  is.edge() && addClass(html, 'edge');
-  is.chrome() && addClass(html, 'chrome');
-  is.mac() && addClass(html, 'osx');
-  is.windows() && addClass(html, 'windows');
-  navigator.userAgent.match('CriOS') && addClass(html, 'chrome');
-};
-/*-----------------------------------------------
-|   Top navigation opacity on scroll
------------------------------------------------*/
-
-
-var navbarInit = function navbarInit() {
-  var Selector = {
-    NAVBAR: '[data-navbar-on-scroll]',
-    NAVBAR_COLLAPSE: '.navbar-collapse',
-    NAVBAR_TOGGLER: '.navbar-toggler'
-  };
-  var ClassNames = {
-    COLLAPSED: 'collapsed'
-  };
-  var Events = {
-    SCROLL: 'scroll',
-    SHOW_BS_COLLAPSE: 'show.bs.collapse',
-    HIDE_BS_COLLAPSE: 'hide.bs.collapse',
-    HIDDEN_BS_COLLAPSE: 'hidden.bs.collapse'
-  };
-  var DataKey = {
-    NAVBAR_ON_SCROLL: 'navbar-light-on-scroll'
-  };
-  var navbar = document.querySelector(Selector.NAVBAR);
-
-  if (navbar) {
-    var windowHeight = window.innerHeight;
-    var html = document.documentElement;
-    var navbarCollapse = navbar.querySelector(Selector.NAVBAR_COLLAPSE);
-
-    var allColors = _objectSpread(_objectSpread({}, utils.colors), utils.grays);
-
-    var name = utils.getData(navbar, DataKey.NAVBAR_ON_SCROLL);
-    var colorName = Object.keys(allColors).includes(name) ? name : 'light';
-    var color = allColors[colorName];
-    var bgClassName = "bg-".concat(colorName);
-    var shadowName = 'shadow-transition';
-    var colorRgb = utils.hexToRgb(color);
-
-    var _window$getComputedSt = window.getComputedStyle(navbar),
-        backgroundImage = _window$getComputedSt.backgroundImage;
-
-    var transition = 'background-color 0.35s ease';
-    navbar.style.backgroundImage = 'none'; // Change navbar background color on scroll
-
-    window.addEventListener(Events.SCROLL, function () {
-      var scrollTop = html.scrollTop;
-      var alpha = scrollTop / windowHeight * 0.5;
-      alpha >= 1 && (alpha = 1);
-      navbar.style.backgroundColor = "rgba(".concat(colorRgb[0], ", ").concat(colorRgb[1], ", ").concat(colorRgb[2], ", ").concat(alpha, ")");
-      navbar.style.backgroundImage = alpha > 0 || utils.hasClass(navbarCollapse, 'show') ? backgroundImage : 'none';
-      alpha > 0 || utils.hasClass(navbarCollapse, 'show') ? navbar.classList.add(shadowName) : navbar.classList.remove(shadowName);
-    }); // Toggle bg class on window resize
-
-    utils.resize(function () {
-      var breakPoint = utils.getBreakpoint(navbar);
-
-      if (window.innerWidth > breakPoint) {
-        navbar.style.backgroundImage = html.scrollTop ? backgroundImage : 'none';
-        navbar.style.transition = 'none';
-      } else if (!utils.hasClass(navbar.querySelector(Selector.NAVBAR_TOGGLER), ClassNames.COLLAPSED)) {
-        navbar.classList.add(bgClassName);
-        navbar.classList.add(shadowName);
-        navbar.style.backgroundImage = backgroundImage;
+    recognition.onresult = (event) => {
+      let currentTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        currentTranscript += event.results[i][0].transcript;
       }
+      sourceText.value = currentTranscript;
+    };
 
-      if (window.innerWidth <= breakPoint) {
-        navbar.style.transition = utils.hasClass(navbarCollapse, 'show') ? transition : 'none';
+    recognition.onerror = (event) => {
+      console.error('Error de voz:', event.error);
+      stopDictation();
+    };
+
+    recognition.onend = () => {
+      stopDictation();
+    };
+  }
+
+  function startDictation() {
+    if (!SpeechRecognition) {
+      alert('Tu navegador no soporta entrada de voz directa (Web Speech API). Por favor ingresa el texto manualmente.');
+      return;
+    }
+
+    const langCode = selectSource.value;
+    recognition.lang = langCode;
+    
+    try {
+      recognition.start();
+      isRecording = true;
+      speakBtn.innerHTML = '<i class="fas fa-stop-circle" style="color: #EF4444;"></i> Detener Dictado';
+      recordingStatus.style.display = 'flex';
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function stopDictation() {
+    if (recognition && isRecording) {
+      recognition.stop();
+    }
+    isRecording = false;
+    speakBtn.innerHTML = '<i class="fas fa-microphone"></i> Iniciar Dictado';
+    recordingStatus.style.display = 'none';
+
+    // Auto-traducir al terminar de hablar
+    if (sourceText.value.trim() !== '') {
+      translateText();
+    }
+  }
+
+  speakBtn.addEventListener('click', () => {
+    if (isRecording) {
+      stopDictation();
+    } else {
+      startDictation();
+    }
+  });
+
+  // --- 2. TRADUCCIÓN EN VIVO (API REAL) ---
+  async function translateText() {
+    const text = sourceText.value.trim();
+    if (!text) {
+      targetText.value = '';
+      return;
+    }
+
+    const srcLang = selectSource.value;
+    const tgtLang = selectTarget.value;
+
+    targetText.value = 'Traduciendo en tiempo real...';
+
+    try {
+      // Usamos el servicio MyMemory API libre
+      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${srcLang}|${tgtLang}`);
+      const data = await response.json();
+
+      if (data.responseData && data.responseData.translatedText) {
+        targetText.value = data.responseData.translatedText;
+      } else {
+        targetText.value = 'No se pudo obtener la traducción para la combinación seleccionada.';
       }
-    });
-    navbarCollapse.addEventListener(Events.SHOW_BS_COLLAPSE, function () {
-      navbar.classList.add(bgClassName);
-      navbar.classList.add(shadowName);
-      navbar.style.backgroundImage = backgroundImage;
-      navbar.style.transition = transition;
-    });
-    navbarCollapse.addEventListener(Events.HIDE_BS_COLLAPSE, function () {
-      navbar.classList.remove(bgClassName);
-      navbar.classList.remove(shadowName);
-      !html.scrollTop && (navbar.style.backgroundImage = 'none');
-    });
-    navbarCollapse.addEventListener(Events.HIDDEN_BS_COLLAPSE, function () {
-      navbar.style.transition = 'none';
+    } catch (error) {
+      console.error('Error de traducción:', error);
+      targetText.value = 'Error al conectar con el servidor de traducción. Verifica tu conexión a internet.';
+    }
+  }
+
+  translateBtn.addEventListener('click', translateText);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ---- LISTA DE IDIOMAS (50+) ----
+  const languagesList = [
+    { code: 'es', name: 'Español' }, { code: 'en', name: 'Inglés' }, { code: 'fr', name: 'Francés' },
+    { code: 'de', name: 'Alemán' }, { code: 'it', name: 'Italiano' }, { code: 'pt', name: 'Portugués' },
+    { code: 'ru', name: 'Ruso' }, { code: 'zh', name: 'Chino' }, { code: 'ja', name: 'Japonés' },
+    { code: 'ko', name: 'Coreano' }, { code: 'ar', name: 'Árabe' }, { code: 'hi', name: 'Hindi' },
+    { code: 'nl', name: 'Holandés' }, { code: 'pl', name: 'Polaco' }, { code: 'tr', name: 'Turco' },
+    { code: 'uk', name: 'Ucraniano' }, { code: 'vi', name: 'Vietnamita' }, { code: 'sv', name: 'Sueco' },
+    { code: 'el', name: 'Griego' }, { code: 'cs', name: 'Checo' }, { code: 'da', name: 'Danés' },
+    { code: 'fi', name: 'Finlandés' }, { code: 'hu', name: 'Húngaro' }, { code: 'id', name: 'Indonesio' },
+    { code: 'ro', name: 'Rumano' }, { code: 'th', name: 'Tailandés' }, { code: 'no', name: 'Noruego' },
+    { code: 'he', name: 'Hebreo' }, { code: 'ca', name: 'Catalán' }, { code: 'sk', name: 'Eslovaco' },
+    { code: 'bn', name: 'Bengalí' }, { code: 'tl', name: 'Tagalo' }, { code: 'ms', name: 'Malayo' },
+    { code: 'fa', name: 'Persa' }, { code: 'ur', name: 'Urdu' }, { code: 'sw', name: 'Suajili' },
+    { code: 'ta', name: 'Tamil' }, { code: 'te', name: 'Telugu' }, { code: 'mr', name: 'Marathi' },
+    { code: 'gu', name: 'Guyaratí' }, { code: 'pa', name: 'Punyabí' }, { code: 'hr', name: 'Croata' },
+    { code: 'sr', name: 'Serbio' }, { code: 'bg', name: 'Búlgaro' }, { code: 'lt', name: 'Lituano' },
+    { code: 'lv', name: 'Letón' }, { code: 'et', name: 'Estonio' }, { code: 'sl', name: 'Esloveno' },
+    { code: 'eu', name: 'Euskera' }, { code: 'gl', name: 'Gallego' }, { code: 'eo', name: 'Esperanto' }
+  ];
+
+  const selectNative = document.getElementById('idioma-nativo');
+  const selectSource = document.getElementById('source-lang');
+  const selectTarget = document.getElementById('target-lang');
+
+  function populateSelects() {
+    languagesList.forEach(lang => {
+      const opt1 = new Option(lang.name, lang.code);
+      if (lang.code === 'es') opt1.selected = true;
+      selectNative.add(opt1);
+
+      const opt2 = new Option(lang.name, lang.code);
+      if (lang.code === 'es') opt2.selected = true;
+      selectSource.add(opt2);
+
+      const opt3 = new Option(lang.name, lang.code);
+      if (lang.code === 'en') opt3.selected = true;
+      selectTarget.add(opt3);
     });
   }
-};
-/* eslint-disable */
+  populateSelects();
 
-/* -------------------------------------------------------------------------- */
+  document.getElementById('btn-swap-langs').addEventListener('click', () => {
+    const temp = selectSource.value;
+    selectSource.value = selectTarget.value;
+    selectTarget.value = temp;
+    
+    const srcText = document.getElementById('source-text').value;
+    const tgtText = document.getElementById('target-text').value;
+    document.getElementById('source-text').value = tgtText;
+    document.getElementById('target-text').value = srcText;
+  });
 
-/*                         Navbar Darken on scroll                        */
+  // ---- MODO CLARO / OSCURO & ACCESIBILIDAD ----
+  const btnTheme = document.getElementById('btn-theme');
+  btnTheme.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    document.body.classList.toggle('dark-mode');
+    btnTheme.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+  });
 
-/* -------------------------------------------------------------------------- */
+  document.getElementById('btn-a11y').addEventListener('click', () => {
+    document.body.classList.toggle('a11y-text');
+  });
 
+  // ---- PESTAÑAS (PRECIOS) ----
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+    });
+  });
 
-var navbarDarkenOnScroll = function navbarDarkenOnScroll() {
-  var Selector = {
-    NAVBAR: "[data-navbar-darken-on-scroll]",
-    NAVBAR_COLLAPSE: ".navbar-collapse",
-    NAVBAR_TOGGLER: ".navbar-toggler"
-  }; // const ClassNames = {
-  //   COLLAPSED: "collapsed",
-  // };
+  // ---- MODAL Y AUTENTICACIÓN ----
+  const modal = document.getElementById('auth-modal');
+  document.getElementById('open-auth-btn').addEventListener('click', () => modal.classList.add('active'));
+  document.getElementById('close-auth-btn').addEventListener('click', () => modal.classList.remove('active'));
+  
+  const formLogin = document.getElementById('form-login');
+  const formRegister = document.getElementById('form-register');
+  document.getElementById('go-to-register').addEventListener('click', () => { formLogin.classList.remove('active'); formRegister.classList.add('active'); });
+  document.getElementById('go-to-login').addEventListener('click', () => { formRegister.classList.remove('active'); formLogin.classList.add('active'); });
+  document.querySelectorAll('.btn-select-plan').forEach(btn => btn.addEventListener('click', () => modal.classList.add('active')));
 
-  var Events = {
-    SCROLL: "scroll",
-    SHOW_BS_COLLAPSE: "show.bs.collapse",
-    HIDE_BS_COLLAPSE: "hide.bs.collapse",
-    HIDDEN_BS_COLLAPSE: "hidden.bs.collapse"
-  };
-  var DataKey = {
-    NAVBAR_DARKEN_ON_SCROLL: "navbar-darken-on-scroll"
-  };
-  var navbar = document.querySelector(Selector.NAVBAR);
+  const landingView = document.getElementById('landing-view');
+  const appView = document.getElementById('app-view');
+  const mainNavLinks = document.getElementById('main-nav-links');
+  const btnToApp = document.getElementById('btn-to-app');
+  const btnLogout = document.getElementById('btn-logout');
+  const openAuthBtn = document.getElementById('open-auth-btn');
 
-  if (navbar) {
-    var defaultColorName = 'dark';
-    var windowHeight = window.innerHeight;
-    var html = document.documentElement; // const navbarCollapse = navbar.querySelector(Selector.NAVBAR_COLLAPSE);
-
-    var allColors = _objectSpread(_objectSpread({}, utils.colors), utils.grays);
-
-    var name = utils.getData(navbar, DataKey.NAVBAR_DARKEN_ON_SCROLL);
-    var colorName = Object.keys(allColors).includes(name.toString()) ? name : defaultColorName;
-    var color = allColors[colorName]; // const bgClassName = `bg-${colorName}`;
-
-    var colorRgb = utils.hexToRgb(color);
-
-    var _window$getComputedSt2 = window.getComputedStyle(navbar),
-        backgroundImage = _window$getComputedSt2.backgroundImage; // const transition = "background-color 0.35s ease";
-
-
-    var borderColor = utils.hexToRgb(allColors['700']);
-    var paddingTop = 48;
-    navbar.style.paddingTop = "".concat(paddingTop, "px");
-    navbar.style.backgroundImage = "none";
-    navbar.style.borderBottom = "none"; //shadow
-
-    var shadowName = 'shadow-transition'; // Change navbar background color on scroll'
-
-    window.addEventListener(Events.SCROLL, function () {
-      var scrollTop = html.scrollTop;
-      var alpha = scrollTop / windowHeight * 2;
-      alpha >= 1 && (alpha = 1);
-      navbar.style.backgroundColor = "rgba(".concat(colorRgb[0], ", ").concat(colorRgb[1], ", ").concat(colorRgb[2], ", ").concat(alpha, ")");
-      navbar.style.borderBottom = "1px solid rgba(".concat(borderColor[0], ", ").concat(borderColor[1], ", ").concat(borderColor[2], ", ").concat(alpha, ")");
-      navbar.style.paddingTop = "".concat(paddingTop * (1 - alpha), "px");
-      navbar.style.backgroundImage = alpha > 0 ? backgroundImage : "none";
-      alpha > 0.2 ? navbar.classList.add(shadowName) : navbar.classList.remove(shadowName);
-    }); // Toggle bg class on window resize
-    // utils.resize(() => {
-    //   const breakPoint = utils.getBreakpoint(navbar);
-    //   if (window.innerWidth > breakPoint) {
-    //     navbar.classList.remove(bgClassName);
-    //     navbar.style.backgroundImage = html.scrollTop
-    //       ? backgroundImage
-    //       : "none";
-    //     navbar.style.transition = "none";
-    //   } else if (
-    //     !utils.hasClass(
-    //       navbar.querySelector(Selector.NAVBAR_TOGGLER),
-    //       ClassNames.COLLAPSED
-    //     )
-    //   ) {
-    //     navbar.classList.add(bgClassName);
-    //     // navbar.classList.add(shadowName);
-    //     navbar.style.backgroundImage = backgroundImage;
-    //   }
-    //   if (window.innerWidth <= breakPoint) {
-    //     navbar.style.transition = utils.hasClass(navbarCollapse, "show")
-    //       ? transition
-    //       : "none";
-    //   }
-    // });
-    // navbarCollapse.addEventListener(Events.SHOW_BS_COLLAPSE, () => {
-    //   navbar.classList.add(bgClassName);
-    //   navbar.classList.add(shadowName);
-    //   navbar.style.backgroundImage = backgroundImage;
-    //   navbar.style.transition = transition;
-    // });
-    // navbarCollapse.addEventListener(Events.HIDE_BS_COLLAPSE, () => {
-    //   navbar.classList.remove(bgClassName);
-    //   navbar.classList.remove(shadowName);
-    //   !html.scrollTop && (navbar.style.backgroundImage = "none");
-    // });
-    // navbarCollapse.addEventListener(Events.HIDDEN_BS_COLLAPSE, () => {
-    //   navbar.style.transition = "none";
-    // });
+  function updateAuthState(isLoggedIn) {
+    if (isLoggedIn) {
+      modal.classList.remove('active');
+      openAuthBtn.style.display = 'none';
+      btnToApp.style.display = 'inline-block';
+      btnLogout.style.display = 'inline-block';
+      landingView.style.display = 'none';
+      appView.style.display = 'block';
+      mainNavLinks.style.display = 'none';
+      window.scrollTo(0,0);
+    } else {
+      openAuthBtn.style.display = 'inline-block';
+      btnToApp.style.display = 'none';
+      btnLogout.style.display = 'none';
+      landingView.style.display = 'block';
+      appView.style.display = 'none';
+      mainNavLinks.style.display = 'flex';
+    }
   }
-}; // /* -------------------------------------------------------------------------- */
-// /*                            Theme Initialization                            */
-// /* -------------------------------------------------------------------------- */
 
+  btnToApp.addEventListener('click', () => { landingView.style.display = 'none'; appView.style.display = 'block'; mainNavLinks.style.display = 'none'; });
+  document.querySelector('.brand').addEventListener('click', () => { if (appView.style.display === 'block') { landingView.style.display = 'block'; appView.style.display = 'none'; mainNavLinks.style.display = 'flex'; } });
+  
+  formLogin.addEventListener('submit', (e) => { e.preventDefault(); updateAuthState(true); });
+  formRegister.addEventListener('submit', (e) => { e.preventDefault(); updateAuthState(true); });
+  btnLogout.addEventListener('click', () => updateAuthState(false));
 
-docReady(navbarInit);
-docReady(detectorInit);
-docReady(navbarDarkenOnScroll);
-//# sourceMappingURL=theme.js.map
+  document.getElementById('btn-save-config')?.addEventListener('click', function() {
+    const originalText = this.innerText;
+    this.innerText = "¡Guardado!";
+    this.style.backgroundColor = "#10B981";
+    setTimeout(() => { this.innerText = originalText; this.style.backgroundColor = ""; }, 2000);
+  });
+
+  // ==========================================
+  // LÓGICA DE LA APP (DICTADO Y TRADUCCIÓN)
+  // ==========================================
+  const sourceText = document.getElementById('source-text');
+  const targetText = document.getElementById('target-text');
+  const speakBtn = document.getElementById('speak-btn');
+  const translateBtn = document.getElementById('translate-btn');
+  const recordingStatus = document.getElementById('recording-status');
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition = null;
+  let isRecording = false;
+
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    recognition.onresult = (event) => {
+      let currentTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        currentTranscript += event.results[i][0].transcript;
+      }
+      sourceText.value = currentTranscript;
+    };
+
+    recognition.onerror = (event) => {
+      console.warn('Error en dictado:', event.error);
+      stopDictation();
+      if(event.error === 'not-allowed') alert('Debes permitir el acceso al micrófono en tu navegador.');
+    };
+    recognition.onend = () => stopDictation();
+  }
+
+  function startDictation() {
+    if (!SpeechRecognition) {
+      alert('Tu navegador no soporta reconocimiento de voz nativo (Prueba Chrome o Edge).');
+      return;
+    }
+    recognition.lang = selectSource.value;
+    try {
+      recognition.start();
+      isRecording = true;
+      speakBtn.innerHTML = '<i class="fas fa-stop-circle" style="color: #fff;"></i> Detener Dictado';
+      speakBtn.style.backgroundColor = '#EF4444';
+      recordingStatus.style.display = 'flex';
+      sourceText.value = ''; 
+    } catch (e) { console.error(e); }
+  }
+
+  function stopDictation() {
+    if (recognition && isRecording) { recognition.stop(); }
+    isRecording = false;
+    speakBtn.innerHTML = '<i class="fas fa-microphone"></i> Iniciar Dictado';
+    speakBtn.style.backgroundColor = '';
+    recordingStatus.style.display = 'none';
+
+    if (sourceText.value.trim() !== '') translateText();
+  }
+
+  speakBtn.addEventListener('click', () => { isRecording ? stopDictation() : startDictation(); });
+
+  async function translateText() {
+    const text = sourceText.value.trim();
+    if (!text) { targetText.value = ''; return; }
+    
+    targetText.value = 'Traduciendo...';
+    try {
+      const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${selectSource.value}|${selectTarget.value}`);
+      const data = await response.json();
+      targetText.value = data.responseData?.translatedText || 'Error en la traducción.';
+    } catch (error) {
+      targetText.value = 'Fallo de conexión. Intenta de nuevo.';
+    }
+  }
+
+  translateBtn.addEventListener('click', translateText);
+});
