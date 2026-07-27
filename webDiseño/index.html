@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voceira — Inteligencia Vocal & Traducción de Elite</title>
+  
+  <!-- Tipografía Sora & Inter (Estilo Apple Minimalista) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Enlace al archivo CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="glow-bg"></div>
+
+  <!-- ===============================================
+       Navegación Superior
+       =============================================== -->
+  <nav class="navbar">
+    <a href="#" class="brand">
+      <i class="fas fa-wave-square" style="color: var(--accent-blue);"></i>
+      VOCEIRA <span class="brand-badge">AI</span>
+    </a>
+    <div id="nav-actions">
+      <button class="btn-login" id="open-login-btn">Iniciar Sesión</button>
+    </div>
+  </nav>
+
+  <!-- ===============================================
+       Hero / Presentación Pública
+       =============================================== -->
+  <main class="hero" id="public-hero">
+    <h1 id="hero-title"></h1>
+    <div class="subtitle-wrapper">
+      <span id="hero-subtitle"></span><span class="cursor"></span>
+    </div>
+  </main>
+
+  <!-- ===============================================
+       Modal de Autenticación Falsa (Guarda en localStorage)
+       =============================================== -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="login-card">
+      <button class="close-modal" id="close-login-btn">&times;</button>
+      <h2>Acceder a Voceira</h2>
+      <p>Introduce tus credenciales para ingresar al panel interactivo.</p>
+      
+      <form id="fake-login-form">
+        <div class="form-group">
+          <label for="username">Nombre de Usuario</label>
+          <input type="text" id="username" placeholder="Ej. Alex Turner" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Correo Electrónico</label>
+          <input type="email" id="email" placeholder="alex@voceira.ai" required>
+        </div>
+        <button type="submit" class="btn-submit">Ingresar a la Plataforma</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===============================================
+       Área Privada / Aplicación Voceira
+       =============================================== -->
+  <section class="app-section" id="app-dashboard">
+    <div class="user-welcome">
+      <div>
+        <h2 id="welcome-message" style="font-family: 'Sora', sans-serif;">Bienvenido</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Sesión activa guardada en tu navegador</p>
+      </div>
+      <button class="btn-action" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+    </div>
+
+    <div class="app-grid">
+      
+      <!-- Módulo 1: Traductor Inteligente Real -->
+      <div class="app-card">
+        <h3><i class="fas fa-language" style="color: var(--accent-info);"></i> Traducción en Tiempo Real</h3>
+        
+        <div class="translator-controls">
+          <select class="lang-select" id="source-lang">
+            <option value="es">Español</option>
+            <option value="en">Inglés</option>
+            <option value="fr">Francés</option>
+            <option value="de">Alemán</option>
+          </select>
+          <span style="align-self: center; color: var(--text-muted);">&rarr;</span>
+          <select class="lang-select" id="target-lang">
+            <option value="en">Inglés</option>
+            <option value="es">Español</option>
+            <option value="fr">Francés</option>
+            <option value="de">Alemán</option>
+          </select>
+        </div>
+
+        <div class="translator-io">
+          <textarea class="translate-box" id="source-text" placeholder="Escribe el texto a traducir..."></textarea>
+          <textarea class="translate-box" id="target-text" placeholder="La traducción aparecerá aquí..." readonly></textarea>
+        </div>
+
+        <div class="translate-actions" style="margin-top: 15px;">
+          <button class="btn-action" id="speak-btn"><i class="fas fa-volume-up"></i> Escuchar</button>
+          <button class="btn-submit" id="translate-btn" style="width: auto; padding: 8px 20px; margin: 0;">Traducir</button>
+        </div>
+      </div>
+
+      <!-- Módulo 2: Demostración de Llamadas de Voz IA -->
+      <div class="app-card">
+        <h3><i class="fas fa-phone-alt" style="color: #00d27a;"></i> Asistente de Voz Voceira</h3>
+        
+        <div class="call-container" id="call-box">
+          <div class="avatar-ring">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h4 id="call-status">Listo para conectar</h4>
+          <p id="call-timer" style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">00:00</p>
+          
+          <div class="waves-container" id="waves">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+          </div>
+
+          <div class="call-controls">
+            <button class="btn-call btn-start-call" id="start-call-btn" title="Iniciar Llamada">
+              <i class="fas fa-phone"></i>
+            </button>
+            <button class="btn-call btn-end-call" id="end-call-btn" title="Colgar" style="display:none;">
+              <i class="fas fa-phone-slash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===============================================
+       Pie de Página
+       =============================================== -->
+  <footer>
+    <p>&copy; 2026 Voceira Inc. Todos los derechos reservados.</p>
+    <div>
+      <a href="#">Términos</a>
+      <a href="#">Privacidad</a>
+    </div>
+  </footer>
+
+  <!-- Enlace al archivo JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
