@@ -5,156 +5,352 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Voceira — Inteligencia Vocal & Traducción de Elite</title>
   
-  <!-- Tipografía Sora & Inter (Estilo Apple Minimalista) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Enlace al archivo CSS -->
-  <link rel="stylesheet" href="style.css">
+  
+  <link rel="stylesheet" href="/webDiseño/assets/css/style.css">
 </head>
 
-<body>
-
+<body class="dark-mode">
   <div class="glow-bg"></div>
 
-  <!-- ===============================================
-       Navegación Superior
-       =============================================== -->
+  <!-- NAVEGACIÓN -->
   <nav class="navbar">
-    <a href="#" class="brand">
+    <a href="#inicio" class="brand nav-link">
       <i class="fas fa-wave-square" style="color: var(--accent-blue);"></i>
-      VOCEIRA <span class="brand-badge">AI</span>
+      VOCEIRA
     </a>
-    <div id="nav-actions">
-      <button class="btn-login" id="open-login-btn">Iniciar Sesión</button>
+    
+    <div class="nav-links" id="main-nav-links">
+      <a href="#inicio" class="nav-link">Inicio</a>
+      <a href="#caracteristicas" class="nav-link">Características</a>
+      <a href="#soluciones" class="nav-link">Soluciones</a>
+      <a href="#testimonios" class="nav-link">Testimonios</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#precios" class="nav-link">Planes</a>
+    </div>
+
+    <div class="nav-actions">
+      <button id="btn-a11y" title="Aumentar tamaño de letra"><i class="fas fa-text-height"></i></button>
+      <button id="btn-theme" title="Cambiar a Modo Claro"><i class="fas fa-sun"></i></button>
+      
+      <div id="auth-controls">
+        <button class="btn-login" id="open-auth-btn">Acceder</button>
+        <button class="btn-primary" id="btn-to-app" style="display:none;">Mi Panel</button>
+        <button class="btn-login" id="btn-logout" style="display:none;"><i class="fas fa-sign-out-alt"></i> Salir</button>
+      </div>
     </div>
   </nav>
 
-  <!-- ===============================================
-       Hero / Presentación Pública
-       =============================================== -->
-  <main class="hero" id="public-hero">
-    <h1 id="hero-title"></h1>
-    <div class="subtitle-wrapper">
-      <span id="hero-subtitle"></span><span class="cursor"></span>
+  <!-- CONTENEDOR PRINCIPAL: LANDING PAGE -->
+  <main id="landing-view" class="active-view">
+
+    <!-- INICIO -->
+    <section id="inicio" class="section-padding">
+      <div class="hero">
+        <h1 class="hero-title">Inteligencia Vocal para Profesionales de Alto Rendimiento</h1>
+        <p class="hero-subtitle">Convierte tu voz en texto estructurado y traducciones instantáneas con precisión milimétrica.</p>
+        
+        <div class="hero-text-content">
+            <p>
+                Voceira es la plataforma definitiva de reconocimiento y procesamiento de voz. Captura cada palabra con una precisión asombrosa, filtra el ruido de fondo y estructura tus ideas al instante. Olvídate de la fatiga de escritura manual y rompe las barreras del idioma con nuestra traducción en tiempo real. Tú concéntrate en tus ideas, nuestra IA se encarga de redactarlas.
+            </p>
+        </div>
+        <div class="hero-actions">
+          <a href="#caracteristicas" class="btn-primary">Descubre cómo funciona</a>
+          <a href="#precios" class="btn-secondary">Ver planes</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARACTERÍSTICAS -->
+    <section id="caracteristicas" class="section-padding bg-alt">
+      <div class="page-content">
+        <h2>Características Principales</h2>
+        <p class="section-desc">Detalles tecnológicos que hacen de Voceira la herramienta más avanzada del mercado.</p>
+        
+        <div class="features-grid">
+          <div class="feature-card interactive-card">
+            <i class="fas fa-bolt"></i>
+            <h4>Alta Fidelidad</h4>
+            <p>Modelos acústicos que capturan tu voz en entornos ruidosos con formato y puntuación automática.</p>
+          </div>
+          <div class="feature-card interactive-card">
+            <i class="fas fa-globe"></i>
+            <h4>Traducción Simultánea</h4>
+            <p>Traduce tu voz en tiempo real a más de 50 idiomas con una gramática contextual perfecta.</p>
+          </div>
+          <div class="feature-card interactive-card">
+            <i class="fas fa-sync-alt"></i>
+            <h4>Sincronización Total</h4>
+            <p>Toda tu información fluye en la nube sin interrupciones, desde tu móvil hasta tu ordenador.</p>
+          </div>
+          <div class="feature-card interactive-card">
+            <i class="fas fa-lock"></i>
+            <h4>Privacidad Empresarial</h4>
+            <p>Cifrado AES-256 de extremo a extremo. Tus transcripciones no alimentan modelos de terceros.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUCIONES -->
+    <section id="soluciones" class="section-padding">
+      <div class="page-content text-center">
+        <h2>Potencia cada Sector Profesional</h2>
+        <p class="section-desc">Voceira se adapta a la densidad y rigor de distintas disciplinas.</p>
+        
+        <div class="solutions-grid">
+          <div class="solution-item interactive-card">
+            <h3>Entorno Corporativo</h3>
+            <p>Redacta actas y correos en una fracción del tiempo. Transforma 30 minutos de tipeo en 5 de dictado.</p>
+          </div>
+          <div class="solution-item interactive-card">
+            <h3>Sector Salud y Legal</h3>
+            <p>Dicta evoluciones de pacientes o contratos con alta precisión, evitando errores de interpretación.</p>
+          </div>
+          <div class="solution-item interactive-card">
+            <h3>Creadores y Periodistas</h3>
+            <p>Graba entrevistas. Voceira separa a los interlocutores y entrega un borrador listo para editar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios" class="section-padding bg-alt">
+      <div class="page-content">
+        <h2 class="text-center">Lo que dicen los expertos</h2>
+        <p class="section-desc text-center">Descubre cómo Voceira está transformando el flujo de trabajo de miles de profesionales.</p>
+        
+        <div class="features-grid">
+          <div class="feature-card interactive-card">
+            <div class="testimonial-header">
+              <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+              <div>
+                <h4>Dra. Elena Ramos</h4>
+                <span class="small-text">Neuróloga</span>
+              </div>
+            </div>
+            <p>"Voceira ha reducido mi tiempo de redacción de historiales clínicos a la mitad. Su comprensión de terminología médica es impecable."</p>
+          </div>
+          <div class="feature-card interactive-card">
+            <div class="testimonial-header">
+              <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+              <div>
+                <h4>Carlos Mendoza</h4>
+                <span class="small-text">CEO, TechForward</span>
+              </div>
+            </div>
+            <p>"La traducción simultánea para nuestras reuniones con clientes en Asia es magia pura. No podemos vivir sin esta herramienta."</p>
+          </div>
+          <div class="feature-card interactive-card">
+            <div class="testimonial-header">
+              <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+              <div>
+                <h4>Laura Silva</h4>
+                <span class="small-text">Abogada Corporativa</span>
+              </div>
+            </div>
+            <p>"Dictar contratos extensos nunca fue tan fácil. La puntuación automática inteligente entiende exactamente cuándo hacer una pausa."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section-padding">
+      <div class="page-content">
+        <h2 class="text-center">Preguntas Frecuentes</h2>
+        <p class="section-desc text-center">Resolvemos tus dudas principales sobre nuestra plataforma.</p>
+        
+        <div class="faq-container">
+          <div class="faq-item interactive-card">
+            <h4>¿Qué tan seguro es dictar información confidencial?</h4>
+            <p class="small-text">Utilizamos encriptación de grado militar (AES-256). Ningún audio se almacena en nuestros servidores una vez procesada la transcripción. Tu privacidad es absoluta.</p>
+          </div>
+          <div class="faq-item interactive-card">
+            <h4>¿Necesito un micrófono profesional?</h4>
+            <p class="small-text">No. Nuestra IA está entrenada para limpiar el ruido de fondo, por lo que el micrófono integrado de tu portátil o teléfono móvil es más que suficiente.</p>
+          </div>
+          <div class="faq-item interactive-card">
+            <h4>¿Funciona sin conexión a internet?</h4>
+            <p class="small-text">Actualmente, el procesamiento y traducción en tiempo real requieren una conexión a internet estable para acceder a nuestros modelos alojados en la nube.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRECIOS CORREGIDOS -->
+    <section id="precios" class="section-padding bg-alt">
+      <div class="page-content text-center">
+        <h2>Planes que se Adaptan a tu Ritmo</h2>
+        <p class="section-desc">Transparencia total, sin costos ocultos. Elige el plan que potencie tu flujo de trabajo.</p>
+        
+        <div class="pricing-tabs">
+          <button class="tab-btn active" data-tab="tab-users">Profesionales</button>
+          <button class="tab-btn" data-tab="tab-enterprise">Empresas</button>
+        </div>
+
+        <div class="tab-content active" id="tab-users">
+          <div class="pricing-grid">
+            
+            <!-- Plan $9.99 Restaurado -->
+            <div class="pricing-card interactive-card">
+              <h3>Esencial</h3>
+              <div class="price"><span>$</span>9.99<span>/mes</span></div>
+              <p class="plan-desc">Precisión de élite para tus tareas diarias.</p>
+              <ul class="plan-features text-left">
+                <li><i class="fas fa-check"></i> 500 minutos mensuales</li>
+                <li><i class="fas fa-check"></i> Soporte para 5 idiomas base</li>
+                <li><i class="fas fa-check"></i> Puntuación estándar</li>
+                <li><i class="fas fa-check"></i> Exportación a texto plano</li>
+              </ul>
+              <button class="btn-secondary btn-select-plan">Elegir Esencial</button>
+            </div>
+            
+            <div class="pricing-card pro-card interactive-card">
+              <div class="badge">RECOMENDADO</div>
+              <h3>Profesional</h3>
+              <div class="price"><span>$</span>15.00<span>/mes</span></div>
+              <p class="plan-desc">Sin límites para quienes viven de su productividad.</p>
+              <ul class="plan-features text-left">
+                <li><i class="fas fa-check"></i> <strong>Minutos ilimitados</strong></li>
+                <li><i class="fas fa-check"></i> Traducción a 50+ idiomas</li>
+                <li><i class="fas fa-check"></i> Vocabulario personalizado</li>
+                <li><i class="fas fa-check"></i> Integración con procesadores de texto</li>
+              </ul>
+              <button class="btn-primary btn-select-plan">Elegir Profesional</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-enterprise">
+          <div class="enterprise-box interactive-card">
+            <h3>Solución Corporativa</h3>
+            <p>Infraestructura dedicada, acceso a API privada y gestión centralizada.</p>
+            <form id="contact-form">
+              <input type="email" class="modern-input" placeholder="Correo electrónico de trabajo" required>
+              <button type="submit" class="btn-primary">Solicitar Análisis</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2026 Voceira Inc. Todos los derechos reservados.</p>
+        <div class="footer-links">
+          <a href="#">Términos de Servicio</a>
+          <a href="#">Privacidad</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- CONTENEDOR: APP VOCEIRA FUNCIONAL -->
+  <main id="app-view" style="display:none;">
+    <div class="app-dashboard">
+      <div class="user-welcome">
+        <div>
+          <h2>Tu Panel de Control</h2>
+          <p id="app-user-name">Estudio Vocal & Traducción Multilingüe (50+ Idiomas)</p>
+        </div>
+      </div>
+
+      <div class="app-grid">
+        <!-- Configuración -->
+        <div class="app-card config-card interactive-card">
+          <h3><i class="fas fa-cog"></i> Configuración de Dictado y Plan</h3>
+          
+          <div class="form-group">
+              <label for="idioma-nativo">Idioma Predeterminado</label>
+              <select id="idioma-nativo" class="modern-select">
+                <!-- Se puebla dinámicamente -->
+              </select>
+          </div>
+
+          <div class="form-group">
+              <label>Suscripción Actual</label>
+              <div class="plan-options-grid">
+                  <!-- Actualizado para reflejar el plan de $9.99 -->
+                  <label class="plan-radio-card interactive-card">
+                      <input type="radio" name="plan" value="esencial">
+                      <div class="plan-radio-content">
+                          <h4>Esencial</h4>
+                          <p>$9.99/mes</p>
+                      </div>
+                  </label>
+                  <label class="plan-radio-card interactive-card">
+                      <input type="radio" name="plan" value="profesional" checked>
+                      <div class="plan-radio-content">
+                          <h4>Pro</h4>
+                          <p>$15.00/mes</p>
+                      </div>
+                  </label>
+              </div>
+          </div>
+          <button class="btn-primary" id="btn-save-config" style="width: 100%;">Guardar Cambios</button>
+        </div>
+
+        <!-- Herramienta de Dictado/Traducción -->
+        <div class="app-card interactive-card">
+          <h3><i class="fas fa-microphone-alt"></i> Traductor en Vivo</h3>
+          <p class="small-text">Habla por micrófono o escribe directamente.</p>
+          
+          <div class="translator-controls">
+            <select class="modern-select" id="source-lang"></select>
+            <button id="btn-swap-langs" class="btn-secondary" style="padding: 0.5rem 0.8rem;"><i class="fas fa-exchange-alt"></i></button>
+            <select class="modern-select" id="target-lang"></select>
+          </div>
+          
+          <div class="textarea-container">
+            <textarea class="translate-box" id="source-text" placeholder="Escribe aquí o presiona Iniciar Dictado..."></textarea>
+            <div id="recording-status" class="status-indicator" style="display:none;">
+              <span class="pulse-dot"></span> Escuchando...
+            </div>
+          </div>
+
+          <textarea class="translate-box" id="target-text" placeholder="Traducción..." readonly></textarea>
+          
+          <div class="translate-actions">
+            <button class="btn-action" id="speak-btn"><i class="fas fa-microphone"></i> Iniciar Dictado</button>
+            <button class="btn-primary" id="translate-btn"><i class="fas fa-language"></i> Traducir Texto</button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- ===============================================
-       Modal de Autenticación Falsa (Guarda en localStorage)
-       =============================================== -->
-  <div class="modal-overlay" id="login-modal">
-    <div class="login-card">
-      <button class="close-modal" id="close-login-btn">&times;</button>
-      <h2>Acceder a Voceira</h2>
-      <p>Introduce tus credenciales para ingresar al panel interactivo.</p>
+  <!-- MODAL DE AUTENTICACIÓN -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="auth-card">
+      <button class="close-modal" id="close-auth-btn">&times;</button>
       
-      <form id="fake-login-form">
-        <div class="form-group">
-          <label for="username">Nombre de Usuario</label>
-          <input type="text" id="username" placeholder="Ej. Alex Turner" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Correo Electrónico</label>
-          <input type="email" id="email" placeholder="alex@voceira.ai" required>
-        </div>
-        <button type="submit" class="btn-submit">Ingresar a la Plataforma</button>
-      </form>
+      <div class="auth-forms-container">
+        <form id="form-login" class="auth-form active">
+          <h2>Iniciar Sesión</h2>
+          <input type="email" id="login-email" class="modern-input" placeholder="Correo electrónico" required>
+          <input type="password" id="login-pass" class="modern-input" placeholder="Contraseña" required>
+          <button type="submit" class="btn-primary w-100">Entrar al Panel</button>
+          <p class="auth-switch">¿No tienes cuenta? <span id="go-to-register">Regístrate</span></p>
+        </form>
+
+        <form id="form-register" class="auth-form">
+          <h2>Crear Cuenta</h2>
+          <input type="text" id="reg-name" class="modern-input" placeholder="Nombre completo" required>
+          <input type="email" id="reg-email" class="modern-input" placeholder="Correo" required>
+          <input type="password" id="reg-pass" class="modern-input" placeholder="Contraseña" required>
+          <button type="submit" class="btn-primary w-100">Registrarse</button>
+          <p class="auth-switch">¿Ya tienes cuenta? <span id="go-to-login">Inicia Sesión</span></p>
+        </form>
+      </div>
     </div>
   </div>
 
-  <!-- ===============================================
-       Área Privada / Aplicación Voceira
-       =============================================== -->
-  <section class="app-section" id="app-dashboard">
-    <div class="user-welcome">
-      <div>
-        <h2 id="welcome-message" style="font-family: 'Sora', sans-serif;">Bienvenido</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Sesión activa guardada en tu navegador</p>
-      </div>
-      <button class="btn-action" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
-    </div>
-
-    <div class="app-grid">
-      
-      <!-- Módulo 1: Traductor Inteligente Real -->
-      <div class="app-card">
-        <h3><i class="fas fa-language" style="color: var(--accent-info);"></i> Traducción en Tiempo Real</h3>
-        
-        <div class="translator-controls">
-          <select class="lang-select" id="source-lang">
-            <option value="es">Español</option>
-            <option value="en">Inglés</option>
-            <option value="fr">Francés</option>
-            <option value="de">Alemán</option>
-          </select>
-          <span style="align-self: center; color: var(--text-muted);">&rarr;</span>
-          <select class="lang-select" id="target-lang">
-            <option value="en">Inglés</option>
-            <option value="es">Español</option>
-            <option value="fr">Francés</option>
-            <option value="de">Alemán</option>
-          </select>
-        </div>
-
-        <div class="translator-io">
-          <textarea class="translate-box" id="source-text" placeholder="Escribe el texto a traducir..."></textarea>
-          <textarea class="translate-box" id="target-text" placeholder="La traducción aparecerá aquí..." readonly></textarea>
-        </div>
-
-        <div class="translate-actions" style="margin-top: 15px;">
-          <button class="btn-action" id="speak-btn"><i class="fas fa-volume-up"></i> Escuchar</button>
-          <button class="btn-submit" id="translate-btn" style="width: auto; padding: 8px 20px; margin: 0;">Traducir</button>
-        </div>
-      </div>
-
-      <!-- Módulo 2: Demostración de Llamadas de Voz IA -->
-      <div class="app-card">
-        <h3><i class="fas fa-phone-alt" style="color: #00d27a;"></i> Asistente de Voz Voceira</h3>
-        
-        <div class="call-container" id="call-box">
-          <div class="avatar-ring">
-            <i class="fas fa-robot"></i>
-          </div>
-          <h4 id="call-status">Listo para conectar</h4>
-          <p id="call-timer" style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">00:00</p>
-          
-          <div class="waves-container" id="waves">
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-          </div>
-
-          <div class="call-controls">
-            <button class="btn-call btn-start-call" id="start-call-btn" title="Iniciar Llamada">
-              <i class="fas fa-phone"></i>
-            </button>
-            <button class="btn-call btn-end-call" id="end-call-btn" title="Colgar" style="display:none;">
-              <i class="fas fa-phone-slash"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===============================================
-       Pie de Página
-       =============================================== -->
-  <footer>
-    <p>&copy; 2026 Voceira Inc. Todos los derechos reservados.</p>
-    <div>
-      <a href="#">Términos</a>
-      <a href="#">Privacidad</a>
-    </div>
-  </footer>
-
-  <!-- Enlace al archivo JavaScript -->
-  <script src="script.js"></script>
+  <script src="/webDiseño/assets/js/script.js"></script>
 </body>
 </html>
