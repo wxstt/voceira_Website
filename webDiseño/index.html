@@ -52,12 +52,7 @@
       <div class="hero">
         <h1 class="hero-title">Inteligencia Vocal para Profesionales de Alto Rendimiento</h1>
         <p class="hero-subtitle">Convierte tu voz en texto estructurado y traducciones instantáneas con precisión milimétrica.</p>
-        
-        <div class="hero-text-content">
-            <p>
-                Voceira es la plataforma definitiva de reconocimiento y procesamiento de voz. Captura cada palabra con una precisión asombrosa, filtra el ruido de fondo y estructura tus ideas al instante. Olvídate de la fatiga de escritura manual y rompe las barreras del idioma con nuestra traducción en tiempo real. Tú concéntrate en tus ideas, nuestra IA se encarga de redactarlas.
-            </p>
-        </div>
+        <p class="hero-subtitle"> Captura cada palabra con una precisión asombrosa, filtra el ruido de fondo y estructura tus ideas al instante. Olvídate de la fatiga de escritura manual y rompe las barreras del idioma con nuestra traducción en tiempo real. </p>
         <div class="hero-actions">
           <a href="#caracteristicas" class="btn-primary">Descubre cómo funciona</a>
           <a href="#precios" class="btn-secondary">Ver planes</a>
@@ -75,7 +70,7 @@
           <div class="feature-card interactive-card">
             <i class="fas fa-bolt"></i>
             <h4>Alta Fidelidad</h4>
-            <p>Modelos acústicos que capturan tu voz en entornos ruidosos con formato y puntuación automática.</p>
+            <p>Modelos acústicos que capturan tu voz en entornos ruidosos.</p>
           </div>
           <div class="feature-card interactive-card">
             <i class="fas fa-globe"></i>
@@ -92,7 +87,18 @@
             <h4>Privacidad Empresarial</h4>
             <p>Cifrado AES-256 de extremo a extremo. Tus transcripciones no alimentan modelos de terceros.</p>
           </div>
-        </div>
+          <!-- NUEVAS CARACTERÍSTICAS AÑADIDAS -->
+          <div class="feature-card interactive-card">
+            <i class="fas fa-brain"></i>
+            <h4>Detección Automática de Idioma</h4>
+            <p>Olvídate de hacer ajustes manuales. Voceira detecta si cambias de idioma a mitad de frase y adapta la traducción al instante.</p>
+          </div>
+          <div class="feature-card interactive-card">
+            <i class="fas fa-book"></i>
+            <h4>Glosario Inteligente</h4>
+            <p>Añade jerga técnica, nombres propios o terminología médica. La IA aprende tu vocabulario para no fallar nunca en contextos complejos.</p>
+          </div>
+        </div> 
       </div>
     </section>
 
@@ -119,43 +125,107 @@
       </div>
     </section>
 
-    <!-- TESTIMONIOS -->
+    <!--HACER CARRUCEL PARA LOS TESTIMONIOS, AÑADIR OTROS 4 PARA DAR DINATISMO -->
+    <!-- TESTIMONIOS (CARRUSEL) -->
     <section id="testimonios" class="section-padding bg-alt">
       <div class="page-content">
         <h2 class="text-center">Lo que dicen los expertos</h2>
         <p class="section-desc text-center">Descubre cómo Voceira está transformando el flujo de trabajo de miles de profesionales.</p>
         
-        <div class="features-grid">
-          <div class="feature-card interactive-card">
-            <div class="testimonial-header">
-              <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
-              <div>
-                <h4>Dra. Elena Ramos</h4>
-                <span class="small-text">Neuróloga</span>
+        <div class="carousel-container">
+          <button class="carousel-btn" id="prev-testimonial"><i class="fas fa-chevron-left"></i></button>
+          
+          <div class="carousel-track-wrapper">
+            <div class="carousel-track" id="testimonial-track">
+              
+              <!-- Testimonio 1 -->
+              <div class="feature-card interactive-card carousel-card">
+                <div class="testimonial-header">
+                  <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+                  <div>
+                    <h4>Dra. Elena Ramos</h4>
+                    <span class="small-text">Neuróloga</span>
+                  </div>
+                </div>
+                <p>"Voceira ha reducido mi tiempo en comprensión de mis documentos medicos"</p>
               </div>
-            </div>
-            <p>"Voceira ha reducido mi tiempo de redacción de historiales clínicos a la mitad. Su comprensión de terminología médica es impecable."</p>
-          </div>
-          <div class="feature-card interactive-card">
-            <div class="testimonial-header">
-              <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
-              <div>
-                <h4>Carlos Mendoza</h4>
-                <span class="small-text">CEO, TechForward</span>
+
+              <!-- Testimonio 2 -->
+              <div class="feature-card interactive-card carousel-card">
+                <div class="testimonial-header">
+                  <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+                  <div>
+                    <h4>Carlos Mendoza</h4>
+                    <span class="small-text">CEO, TechForward</span>
+                  </div>
+                </div>
+                <p>"La traducción simultánea para nuestras reuniones con clientes en Asia es magia pura. No podemos vivir sin esta herramienta."</p>
               </div>
-            </div>
-            <p>"La traducción simultánea para nuestras reuniones con clientes en Asia es magia pura. No podemos vivir sin esta herramienta."</p>
-          </div>
-          <div class="feature-card interactive-card">
-            <div class="testimonial-header">
-              <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
-              <div>
-                <h4>Laura Silva</h4>
-                <span class="small-text">Abogada Corporativa</span>
+
+              <!-- Testimonio 3 -->
+              <div class="feature-card interactive-card carousel-card">
+                <div class="testimonial-header">
+                  <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+                  <div>
+                    <h4>Laura Silva</h4>
+                    <span class="small-text">Abogada Corporativa</span>
+                  </div>
+                </div>
+                <p>"Traducir contratos extensos nunca fue tan fácil.La traduccion y explicación son excelentes."</p>
               </div>
+
+              <!-- Testimonio 4 (NUEVO) -->
+              <div class="feature-card interactive-card carousel-card">
+                <div class="testimonial-header">
+                  <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+                  <div>
+                    <h4>David Aranda</h4>
+                    <span class="small-text">Periodista de Investigación</span>
+                  </div>
+                </div>
+                <p>"Grabar entrevistas y que Voceira separe automáticamente las voces de los entrevistados me ahorra horas."</p>
+              </div>
+
+              <!-- Testimonio 5 (NUEVO) -->
+              <div class="feature-card interactive-card carousel-card">
+                <div class="testimonial-header">
+                  <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+                  <div>
+                    <h4>Sofía Chen</h4>
+                    <span class="small-text">Directora de Ventas Globales</span>
+                  </div>
+                </div>
+                <p>"Poder hablar en español mientras mi cliente en Tokio lee y escucha la traducción en japonés en tiempo real ha duplicado nuestro cierre de ventas."</p>
+              </div>
+
+              <!-- Testimonio 6 (NUEVO) -->
+              <div class="feature-card interactive-card carousel-card">
+                <div class="testimonial-header">
+                  <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+                  <div>
+                    <h4>Martín Lozano</h4>
+                    <span class="small-text">Desarrollador Senior</span>
+                  </div>
+                </div>
+                <p>"Creí que dictar documentación técnica sería un desastre por los términos en inglés mezclados con español, pero el glosario inteligente de Voceira no falla."</p>
+              </div>
+
+              <!-- Testimonio 7 (NUEVO) -->
+              <div class="feature-card interactive-card carousel-card">
+                <div class="testimonial-header">
+                  <i class="fas fa-user-circle" style="font-size: 2.5rem; color: var(--accent-blue);"></i>
+                  <div>
+                    <h4>Valeria Montes</h4>
+                    <span class="small-text">Estudiante de Doctorado</span>
+                  </div>
+                </div>
+                <p>"Mi tesis requiere procesar cientos de audios de campo. La capacidad de Voceira para limpiar el ruido de fondo callejero me ha salvado el proyecto."</p>
+              </div>
+
             </div>
-            <p>"Dictar contratos extensos nunca fue tan fácil. La puntuación automática inteligente entiende exactamente cuándo hacer una pausa."</p>
           </div>
+
+          <button class="carousel-btn" id="next-testimonial"><i class="fas fa-chevron-right"></i></button>
         </div>
       </div>
     </section>
@@ -173,7 +243,7 @@
           </div>
           <div class="faq-item interactive-card">
             <h4>¿Necesito un micrófono profesional?</h4>
-            <p class="small-text">No. Nuestra IA está entrenada para limpiar el ruido de fondo, por lo que el micrófono integrado de tu portátil o teléfono móvil es más que suficiente.</p>
+            <p class="small-text">No. Nuestras algoritmias están entrenadas para limpiar el ruido de fondo, por lo que el micrófono integrado de tu portátil o teléfono móvil es más que suficiente.</p>
           </div>
           <div class="faq-item interactive-card">
             <h4>¿Funciona sin conexión a internet?</h4>
@@ -204,8 +274,8 @@
               <p class="plan-desc">Precisión de élite para tus tareas diarias.</p>
               <ul class="plan-features text-left">
                 <li><i class="fas fa-check"></i> 500 minutos mensuales</li>
-                <li><i class="fas fa-check"></i> Soporte para 5 idiomas base</li>
-                <li><i class="fas fa-check"></i> Puntuación estándar</li>
+                <li><i class="fas fa-check"></i> Soporte para 20 idiomas base</li>
+                <li><i class="fas fa-check"></i> Traducción en tiempo real</li>
                 <li><i class="fas fa-check"></i> Exportación a texto plano</li>
               </ul>
               <button class="btn-secondary btn-select-plan">Elegir Esencial</button>
@@ -288,7 +358,7 @@
                       <input type="radio" name="plan" value="profesional" checked>
                       <div class="plan-radio-content">
                           <h4>Pro</h4>
-                          <p>$15.00/mes</p>
+                          <p>$14.99/mes</p>
                       </div>
                   </label>
               </div>
