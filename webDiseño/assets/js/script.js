@@ -274,32 +274,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const track = document.getElementById('testimonial-track');
   const prevBtn = document.getElementById('prev-testimonial');
   const nextBtn = document.getElementById('next-testimonial');
-  
+
   if (track && prevBtn && nextBtn) {
     let currentIndex = 0;
-    
-    // Función para mover el carrusel
-    const updateCarousel = () => {
+
+    const getVisibleCards = () => {
+      return window.innerWidth > 900 ? 3 : (window.innerWidth > 600 ? 2 : 1);
+    };
+
+    const getCardWidth = () => {
       const card = track.querySelector('.carousel-card');
-      // Obtenemos el ancho de la tarjeta + el espacio (gap) de 20px
-      const cardWidth = card.getBoundingClientRect().width + 20; 
+      if (!card) return 0;
+      // Lee el gap real desde el CSS en vez de asumir 20px
+      const trackStyles = window.getComputedStyle(track);
+      const gap = parseFloat(trackStyles.columnGap || trackStyles.gap || '0');
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    const getMaxIndex = () => {
+      const cards = track.querySelectorAll('.carousel-card');
+      const visibleCards = getVisibleCards();
+      return Math.max(0, cards.length - visibleCards);
+    };
+
+    const updateCarousel = () => {
+      const cardWidth = getCardWidth();
       track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
     };
 
     nextBtn.addEventListener('click', () => {
-      const cards = track.querySelectorAll('.carousel-card');
-      // Calculamos cuántas tarjetas son visibles según el tamaño de la ventana
-      let visibleCards = window.innerWidth > 900 ? 3 : (window.innerWidth > 600 ? 2 : 1);
-      
-      // Si no hemos llegado al final, avanzamos
-      if (currentIndex < cards.length - visibleCards) {
+      const maxIndex = getMaxIndex();
+      if (currentIndex < maxIndex) {
         currentIndex++;
-        updateCarousel();
       } else {
-        // Vuelve al inicio si llega al final (opcional)
-        currentIndex = 0; 
-        updateCarousel();
+        currentIndex = 0; // vuelve al inicio
       }
+      updateCarousel();
     });
 
     prevBtn.addEventListener('click', () => {
@@ -309,11 +319,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Actualizar en caso de que cambien el tamaño de la ventana
-    window.addEventListener('resize', updateCarousel);
+    // Al cambiar el tamaño de la ventana, corrige currentIndex si quedó fuera de rango
+    window.addEventListener('resize', () => {
+      const maxIndex = getMaxIndex();
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
+      updateCarousel();
+    });
   }
 });
-
 // escritura de los titulos 
 
 

@@ -751,9 +751,9 @@ footer { border-top: 1px solid var(--border-color); padding: 2rem 5%; margin-top
   padding: 1rem 0; /* Espacio para las sombras de las cards */
 }
 
-carousel-track {
+.carousel-track {
   display: flex;
-  align-items: stretch; /* ¡Esta es la clave! Obliga a todas las tarjetas a tener la misma altura */
+  align-items: stretch;
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   gap: 20px;
 }
@@ -831,4 +831,16 @@ carousel-track {
 /* Evitamos saltos de línea bruscos durante la escritura en el Hero */
 .hero-title, .hero-subtitle {
   min-height: 1em; /* Mantiene el espacio aunque esté vacío */
+}
+
+.brand-logo {
+  height: 78px; /* ajustá al tamaño real de tu navbar */
+  width: auto;
+  display: block;
+}
+
+/* El logo es negro por defecto -> se ve bien en fondo claro */
+/* En modo oscuro lo invertimos para que se vea blanco */
+body.dark-mode .brand-logo {
+  filter: invert(1);
 }
